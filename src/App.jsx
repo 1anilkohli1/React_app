@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const startingTasks = [
   { id: 1, title: 'Review the product roadmap', time: '09:00', category: 'Focus', done: true },
@@ -9,9 +9,20 @@ const startingTasks = [
 ]
 
 const filters = ['All tasks', 'To do', 'Completed']
+const tasksStorageKey = 'orbit-daily-planner-tasks'
 
 function App() {
-  const [tasks, setTasks] = useState(startingTasks)
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = window.localStorage.getItem(tasksStorageKey)
+    if (savedTasks === null) return startingTasks
+
+    const parsedTasks = JSON.parse(savedTasks)
+    if (!Array.isArray(parsedTasks)) {
+      throw new Error('Saved tasks are not in the expected format.')
+    }
+
+    return parsedTasks
+  })
   const [filter, setFilter] = useState('All tasks')
   const [newTask, setNewTask] = useState('')
   const completedCount = tasks.filter((task) => task.done).length
@@ -29,6 +40,10 @@ function App() {
     month: 'long',
     day: 'numeric',
   }).format(new Date())
+
+  useEffect(() => {
+    window.localStorage.setItem(tasksStorageKey, JSON.stringify(tasks))
+  }, [tasks])
 
   function addTask(event) {
     event.preventDefault()
@@ -133,7 +148,7 @@ function App() {
             <div className="section-heading">
               <div>
                 <h2>Today’s tasks <span className="task-total">{tasks.length}</span></h2>
-                <p>One thing at a time.</p>
+                <p>One thing at a time · Saved on this device</p>
               </div>
               <div className="filters" role="group" aria-label="Filter tasks">
                 {completedCount > 0 && (
