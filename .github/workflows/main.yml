@@ -1,0 +1,14 @@
+name: Anil Kohli
+
+on:
+  push:
+   branches: [ main ]
+
+
+jobs:
+  demo:
+    runs-on: ubontu-latest
+
+    steps:
+     - name: Greetings
+       run: echo "Hello World"
