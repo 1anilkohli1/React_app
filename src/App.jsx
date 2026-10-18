@@ -47,6 +47,14 @@ function App() {
     )
   }
 
+  function deleteTask(id) {
+    setTasks((current) => current.filter((task) => task.id !== id))
+  }
+
+  function clearCompletedTasks() {
+    setTasks((current) => current.filter((task) => !task.done))
+  }
+
   return (
     <main className="app-shell">
       <aside className="sidebar">
@@ -105,7 +113,15 @@ function App() {
           <section className="progress-card" aria-label="Daily progress">
             <div className="progress-copy">
               <div className="progress-title">Your daily progress <span className="sparkle">✳</span></div>
-              <div className="progress-subtitle">{completedCount} of {tasks.length} tasks completed <span>·</span> You’re doing great!</div>
+              <div className="progress-subtitle">
+                {completedCount} of {tasks.length} tasks completed
+                <span>·</span>
+                {tasks.length > 0 && completedCount === tasks.length
+                  ? 'You did it. Enjoy the rest of your day!'
+                  : completedCount > 0
+                    ? 'You’re building good momentum.'
+                    : 'Every small step counts.'}
+              </div>
             </div>
             <div className="progress-meter">
               <div className="progress-track"><div className="progress-fill" style={{ width: `${progress}%` }} /></div>
@@ -120,6 +136,11 @@ function App() {
                 <p>One thing at a time.</p>
               </div>
               <div className="filters" role="group" aria-label="Filter tasks">
+                {completedCount > 0 && (
+                  <button className="clear-completed" onClick={clearCompletedTasks} type="button">
+                    Clear completed
+                  </button>
+                )}
                 {filters.map((item) => (
                   <button
                     className={filter === item ? 'filter-button selected' : 'filter-button'}
@@ -145,7 +166,13 @@ function App() {
                     <div className="task-title">{task.title}</div>
                     <div className="task-meta"><span className="task-time">{task.time}</span><span className={`tag tag-${task.category.toLowerCase().replace(' ', '-')}`}>{task.category}</span></div>
                   </div>
-                  <button className="task-menu" type="button" aria-label={`More options for ${task.title}`}>···</button>
+                  <button
+                    className="task-delete"
+                    onClick={() => deleteTask(task.id)}
+                    type="button"
+                    aria-label={`Delete ${task.title}`}
+                    title="Delete task"
+                  >×</button>
                 </article>
               ))}
               {visibleTasks.length === 0 && <div className="empty-state">Nothing here just yet. Enjoy the breathing room.</div>}

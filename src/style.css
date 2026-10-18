@@ -85,10 +85,13 @@ h2 { margin: 0 0 5px; font: 700 16px 'Manrope', sans-serif; letter-spacing: -.3p
 .task-total { display: inline-grid; place-items: center; width: 19px; height: 19px; margin-left: 4px; border-radius: 50%; background: #eeede8; color: #77766f; font: 500 9px 'DM Sans', sans-serif; vertical-align: 2px; }
 .section-heading p { margin: 0; color: #a09f98; font-size: 10px; }
 .filters { display: flex; gap: 4px; padding-bottom: 1px; }
+.clear-completed { border: 0; background: transparent; padding: 6px 8px; color: #cf7959; font-size: 9px; cursor: pointer; white-space: nowrap; }
+.clear-completed:hover { color: #a94f31; }
 .filter-button { border: 0; background: transparent; padding: 6px 9px; border-radius: 5px; color: #999890; font-size: 9px; cursor: pointer; }
 .filter-button.selected { background: #fff; box-shadow: 0 1px 4px #27231a0d; color: #5f5e57; }
 .task-list { border: 1px solid #eeede8; border-radius: 8px; overflow: hidden; background: white; }
 .task-row { min-height: 65px; display: flex; align-items: center; padding: 0 17px; gap: 13px; border-bottom: 1px solid #f1f0ec; }
+.task-row:hover { background: #fdfcf9; }
 .task-row:last-child { border-bottom: 0; }
 .task-check { width: 16px; height: 16px; border: 1.4px solid #d9d8d1; border-radius: 50%; background: white; display: grid; place-items: center; padding: 0; color: white; cursor: pointer; flex: 0 0 16px; }
 .task-check:hover { border-color: #e88c69; }
@@ -101,7 +104,8 @@ h2 { margin: 0 0 5px; font: 700 16px 'Manrope', sans-serif; letter-spacing: -.3p
 .tag-work { color: #b47b4d; background: #fbf2e9; }
 .tag-personal { color: #718b72; background: #eff4ed; }
 .tag-new { color: #77766f; background: #f1f0ec; }
-.task-menu { margin-left: auto; border: 0; background: transparent; color: #c2c0b8; font-size: 18px; letter-spacing: 2px; cursor: pointer; }
+.task-delete { width: 28px; height: 28px; margin-left: auto; border: 0; border-radius: 6px; background: transparent; color: #aaa9a2; font-size: 20px; line-height: 1; cursor: pointer; }
+.task-delete:hover { background: #fbf0eb; color: #c96948; }
 .empty-state { padding: 25px; color: #999890; font-size: 11px; text-align: center; }
 .new-task-form { min-height: 46px; display: flex; align-items: center; gap: 10px; padding: 0 15px; border: 1px dashed #dfded7; border-radius: 8px; margin-top: 9px; }
 .new-task-plus { color: #de8968; font-size: 18px; }
@@ -114,6 +118,7 @@ h2 { margin: 0 0 5px; font: 700 16px 'Manrope', sans-serif; letter-spacing: -.3p
 .focus-card p { color: #99958b; font-size: 9px; margin: 0; }
 .focus-card button { margin-left: auto; border: 0; background: transparent; color: #b17f4d; font-size: 9px; cursor: pointer; white-space: nowrap; }
 .focus-card button span { padding-left: 4px; }
+button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid #df805d; outline-offset: 3px; }
 footer { padding-top: 25px; text-align: center; color: #b3b1a9; font-size: 9px; }
 footer span { padding: 0 5px; color: #d4d1c8; }
 footer .footer-heart { color: #e38a68; }
@@ -147,7 +152,7 @@ footer .footer-heart { color: #e38a68; }
   .progress-card { align-items: flex-start; flex-direction: column; gap: 14px; padding: 15px; }
   .progress-meter { width: 100%; }
   .section-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
-  .filters { align-self: flex-end; margin-top: -34px; }
+  .filters { align-self: flex-end; flex-wrap: wrap; justify-content: flex-end; }
   .filter-button { padding: 6px; font-size: 8px; }
   .task-row { padding: 0 12px; gap: 10px; }
   .focus-card { gap: 9px; padding: 10px; }
